@@ -1,0 +1,35 @@
+(* HW2: предсказывающий рекурсивный спуск, один токен просмотра.
+   {} — повторение, [] — необязательная часть. Все терминалы в кавычках.
+   IDENT и INT — токены существующего DFA-лексера. *)
+program       = function, { function }, EOF ;
+function      = "function", IDENT, "(", [ variables ], ")",
+                [ "requires", expression ], "returns", variables,
+                [ "ensures", expression ], [ "uses", locals ], block ;
+variables     = variable, { ",", variable } ;
+variable      = IDENT, ":", type ;
+type          = "int", [ "[", "]" ] ;
+locals        = local, { ",", local } ;
+local         = IDENT, [ ":", type ] ;
+block         = "{", { statement }, "}" ;
+statement     = block | assignment | conditional | loop | assertion | assumption ;
+assignment    = IDENT, assignmentTail ;
+assignmentTail = "=", expression, ";"
+               | "[", expression, "]", { "[", expression, "]" }, "=", expression, ";"
+               | ",", IDENT, { ",", IDENT }, "=", expression, ";" ;
+(* При нескольких целях expression обязан быть Call; проверка формы AST в парсере. *)
+conditional   = "if", "(", expression, ")", block, [ "else", block ] ;
+loop          = "while", "(", expression, ")", [ "invariant", expression ], block ;
+assertion     = "assert", expression, ";" ;
+assumption    = "assume", expression, ";" ;
+expression    = disjunction, [ "->", expression ] ;
+disjunction   = conjunction, { "or", conjunction } ;
+conjunction   = negation, { "and", negation } ;
+negation      = "not", negation | comparison ;
+comparison    = sum, [ ("==" | "!=" | "<" | "<=" | ">" | ">="), sum ] ;
+sum           = product, { ("+" | "-"), product } ;
+product       = unary, { ("*" | "/"), unary } ;
+unary         = "-", unary | postfix ;
+postfix       = primary, { "[", expression, "]" } ;
+primary       = INT | "true" | "false" | "(", expression, ")"
+              | IDENT, [ arguments ] | "length", arguments ;
+arguments     = "(", [ expression, { ",", expression } ], ")" ;

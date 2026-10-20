@@ -1,0 +1,7 @@
+function broken(x:int) returns r:int {
+    r = (x + 1;
+    assert ;
+    r == 4;
+    r = 5;
+}
+function next() returns r:int { r = 1; }

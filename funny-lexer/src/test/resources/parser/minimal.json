@@ -1,0 +1,65 @@
+{
+  "kind": "Program",
+  "functions": [
+    {
+      "kind": "Function",
+      "name": "f",
+      "parameters": [],
+      "returns": [
+        {
+          "kind": "Variable",
+          "name": "r",
+          "type": "int",
+          "position": {
+            "offset": 21,
+            "line": 1,
+            "column": 22
+          }
+        }
+      ],
+      "requires": null,
+      "ensures": null,
+      "locals": [],
+      "body": {
+        "kind": "Block",
+        "statements": [
+          {
+            "kind": "Assign",
+            "targets": [
+              "r"
+            ],
+            "value": {
+              "kind": "IntegerLiteral",
+              "value": "1",
+              "position": {
+                "offset": 33,
+                "line": 1,
+                "column": 34
+              }
+            },
+            "position": {
+              "offset": 29,
+              "line": 1,
+              "column": 30
+            }
+          }
+        ],
+        "position": {
+          "offset": 27,
+          "line": 1,
+          "column": 28
+        }
+      },
+      "position": {
+        "offset": 0,
+        "line": 1,
+        "column": 1
+      }
+    }
+  ],
+  "position": {
+    "offset": 0,
+    "line": 1,
+    "column": 1
+  }
+}

@@ -1,0 +1,26 @@
+function increment(x:int) returns r:int {
+    r = x + 1;
+}
+
+function demo(a:int[], n:int)
+requires n >= 0
+returns b:int[], total:int
+ensures total >= 0
+uses i:int, temporary
+{
+    b = a;
+    total = 0;
+    i = 0;
+    assume n <= length(a);
+    while (i < n) invariant i >= 0 and total >= 0 {
+        total = total + a[i];
+        b[i] = increment(a[i]);
+        i = i + 1;
+    }
+    if (n == 0) {
+        assert total == 0;
+    } else {
+        { temporary = -total / 2; }
+        assert not (total < 0) or false;
+    }
+}
